@@ -12,6 +12,14 @@
  */
 
 ?>
+
+    <?php
+        if (is_user_logged_in() ) {
+            echo 'Welcome, registered user!';
+        } else {
+            echo 'Welcome, visitor!';
+        }
+    ?>
 <!doctype html>
 <html <?php language_attributes(); ?> <?php twentytwentyone_the_html_classes(); ?>>
 <head>
