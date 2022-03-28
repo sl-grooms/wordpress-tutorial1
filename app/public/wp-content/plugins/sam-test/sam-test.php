@@ -28,17 +28,28 @@
 
 class samTest
 {
+    function __construct() {
+        add_action ( 'init', array( $this, 'custom_post_type') ); //searches for this function inside this class. adds action on initialization
+    }
     function activate() {
         //generate a custom post type (CPT)
+        $this->custom_post_type(); //find these methods only inside samTest class (method inside method)
         //flush rewrite rules
+        flush_rewrite_rules(); //global procedural code
         }
     function deactivate() {
         //flush rewrite rules
-        }
+        flush_rewrite_rules();
+    }
     function uninstall() {
         //delete CPT
         //delete all the plugin data from the DB
     }
+
+    function custom_post_type() {
+        register_post_type( 'book', ['public' => true, 'label' => 'Books']); // added books to dashboard
+    }
+
 }
 
 if ( class_exists ( 'samTest') ) {
@@ -51,6 +62,7 @@ register_activation_hook( __FILE__, array( $sam_test, 'activate') ); // only in 
 
 register_deactivation_hook( __FILE__, array( $sam_test, 'activate') ); // same thing as above but deactivates hook
 //uninstall
+
 
 
 //function customFunction($arg) {
