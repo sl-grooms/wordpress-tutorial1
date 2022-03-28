@@ -31,6 +31,9 @@ class samTest
     function __construct() {
         add_action ( 'init', array( $this, 'custom_post_type') ); //searches for this function inside this class. adds action on initialization
     }
+    function register() {
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue') ); //triggers enqueue on admin end
+    }
     function activate() {
         //generate a custom post type (CPT)
         $this->custom_post_type(); //find these methods only inside samTest class (method inside method)
@@ -41,19 +44,20 @@ class samTest
         //flush rewrite rules
         flush_rewrite_rules();
     }
-//    function uninstall() {
-//        //delete CPT
-//        //delete all the plugin data from the DB
-//    }
 
     function custom_post_type() {
         register_post_type( 'book', ['public' => true, 'label' => 'Books']); // added books to dashboard
     }
-
+    function enqueue() {
+        //enqueue all scripts
+        wp_enqueue_style( 'mypluginstyle', plugins_url( '/assets/mystyle.css', __FILE__ ) );
+        wp_enqueue_script( 'myscript', plugins_url( '/assets/myscript.js', __FILE__ ) );
+    }
 }
 
 if ( class_exists ( 'samTest') ) {
     $sam_test = new samTest();
+    $sam_test->register();
 }
 
 // activation
