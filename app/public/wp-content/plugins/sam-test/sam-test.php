@@ -41,10 +41,10 @@ class samTest
         //flush rewrite rules
         flush_rewrite_rules();
     }
-    function uninstall() {
-        //delete CPT
-        //delete all the plugin data from the DB
-    }
+//    function uninstall() {
+//        //delete CPT
+//        //delete all the plugin data from the DB
+//    }
 
     function custom_post_type() {
         register_post_type( 'book', ['public' => true, 'label' => 'Books']); // added books to dashboard
@@ -62,6 +62,7 @@ register_activation_hook( __FILE__, array( $sam_test, 'activate') ); // only in 
 
 register_deactivation_hook( __FILE__, array( $sam_test, 'activate') ); // same thing as above but deactivates hook
 //uninstall
+register_uninstall_hook( __FILE__, array( $sam_test, 'uninstall') );
 
 
 
